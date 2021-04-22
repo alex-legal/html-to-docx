@@ -42,6 +42,7 @@ class DocxDocument {
     htmlString,
     orientation,
     margins,
+    paragraph,
     title,
     subject,
     creator,
@@ -74,6 +75,7 @@ class DocxDocument {
         : orientation === 'landscape'
         ? landscapeMargins
         : portraitMargins;
+    this.paragraph = paragraph;
     this.availableDocumentSpace = this.width - this.margins.left - this.margins.right;
     this.title = title || '';
     this.subject = subject || '';
@@ -281,7 +283,7 @@ class DocxDocument {
   generateStylesXML() {
     const stylesXML = create(
       { encoding: 'UTF-8', standalone: true },
-      generateStylesXML(this.font, this.fontSize, this.complexScriptFontSize)
+      generateStylesXML(this.font, this.fontSize, this.complexScriptFontSize, this.paragraph)
     );
 
     return stylesXML.toString({ prettyPrint: true });

@@ -32,6 +32,14 @@ const defaultDocumentOptions = {
     footer: 720,
     gutter: 0,
   },
+  paragraph: {
+    spacing: {
+      before: 0,
+      after: 120,
+      line: 240,
+      lineRule: 'atLeast',
+    },
+  },
   title: '',
   subject: '',
   creator: 'html-to-docx',
@@ -57,7 +65,13 @@ const defaultDocumentOptions = {
   skipFirstHeaderFooter: false,
 };
 
-const mergeOptions = (options, patch) => ({ ...options, ...patch });
+const mergeOptions = (options, patch) => ({
+  ...options,
+  ...patch,
+  paragraph: {
+    spacing: { ...options.paragraph.spacing, ...patch.paragraph.spacing },
+  },
+});
 
 const fixupFontSize = (fontSize) => {
   let normalizedFontSize;

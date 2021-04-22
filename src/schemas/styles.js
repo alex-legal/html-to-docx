@@ -1,6 +1,11 @@
 import { namespaces } from '../helpers';
 
-const generateStylesXML = (font = 'Times New Roman', fontSize = 22, complexScriptFontSize = 22) => {
+const generateStylesXML = (
+  font = 'Times New Roman',
+  fontSize = 22,
+  complexScriptFontSize = 22,
+  paragraph
+) => {
   return `
   <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
@@ -16,7 +21,7 @@ const generateStylesXML = (font = 'Times New Roman', fontSize = 22, complexScrip
 	  </w:rPrDefault>
 	  <w:pPrDefault>
 		<w:pPr>
-		  <w:spacing w:after="120" w:line="240" w:lineRule="atLeast" />
+		  <w:spacing w:before="${paragraph.spacing.before}" w:after="${paragraph.spacing.after}" w:line="${paragraph.spacing.line}" w:lineRule="${paragraph.spacing.lineRule}" />
 		</w:pPr>
 	  </w:pPrDefault>
 	</w:docDefaults>
