@@ -25,6 +25,14 @@ const portraitMargins = {
 const defaultFont = 'Times New Roman';
 const defaultFontSize = 22;
 const defaultLang = 'en-US';
+const defaultParagraph = {
+  spacing: {
+    before: 0,
+    after: 120,
+    line: 240,
+    lineRule: 'atLeast',
+  },
+};
 const defaultDocumentOptions = {
   orientation: defaultOrientation,
   margins: cloneDeep(portraitMargins),
@@ -128,6 +136,7 @@ export {
   applicationName,
   defaultFont,
   defaultFontSize,
+  defaultParagraph,
   hyperlinkType,
   imageType,
   paragraphBordersObject,

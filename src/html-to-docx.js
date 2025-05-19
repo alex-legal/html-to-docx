@@ -39,9 +39,13 @@ const convertHTML = HTMLToVDOM({
   VText,
 });
 
-const mergeOptions = (options, patch) => ({ ...options, ...patch, paragraph: {
-  spacing: { ...options.paragraph.spacing, ...patch.paragraph.spacing },
-}, });
+const mergeOptions = (options, patch) => ({
+  ...options,
+  ...patch,
+  paragraph: {
+    spacing: { ...options.paragraph?.spacing, ...patch.paragraph?.spacing },
+  },
+});
 
 const fixupFontSize = (fontSize) => {
   let normalizedFontSize;
