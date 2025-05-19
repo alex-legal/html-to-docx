@@ -116,6 +116,7 @@ class DocxDocument {
     this.htmlString = properties.htmlString;
     this.orientation = properties.orientation;
     this.pageSize = properties.pageSize || defaultDocumentOptions.pageSize;
+    this.paragraph = properties.paragraph;
 
     const isPortraitOrientation = this.orientation === defaultOrientation;
     const height = this.pageSize.height ? this.pageSize.height : landscapeHeight;
@@ -262,7 +263,7 @@ class DocxDocument {
 
   generateStylesXML() {
     return generateXMLString(
-      generateStylesXML(this.font, this.fontSize, this.complexScriptFontSize, this.lang)
+      generateStylesXML(this.font, this.fontSize, this.complexScriptFontSize, this.lang, this.paragraph)
     );
   }
 

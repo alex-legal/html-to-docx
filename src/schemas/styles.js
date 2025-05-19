@@ -5,7 +5,8 @@ const generateStylesXML = (
   font = defaultFont,
   fontSize = defaultFontSize,
   complexScriptFontSize = defaultFontSize,
-  lang = defaultLang
+  lang = defaultLang,
+  paragraph
 ) => `
   <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
@@ -21,7 +22,7 @@ const generateStylesXML = (
 	  </w:rPrDefault>
 	  <w:pPrDefault>
 		<w:pPr>
-		  <w:spacing w:after="120" w:line="240" w:lineRule="atLeast" />
+		  <w:spacing w:before="${paragraph.spacing.before}" w:after="${paragraph.spacing.after}" w:line="${paragraph.spacing.line}" w:lineRule="${paragraph.spacing.lineRule}" />
 		</w:pPr>
 	  </w:pPrDefault>
 	</w:docDefaults>
