@@ -482,7 +482,7 @@ const buildRun = async (vNode, attributes, docxDocumentInstance) => {
   ) {
     const runFragmentsArray = [];
 
-    let vNodes = [vNode];
+    const vNodes = [vNode];
     // create temp run fragments to split the paragraph into different runs
     let tempAttributes = cloneDeep(attributes);
     let tempRunFragment = fragment({ namespaceAlias: { w: namespaces.w } }).ele('@w', 'r');
@@ -517,23 +517,24 @@ const buildRun = async (vNode, attributes, docxDocumentInstance) => {
             'pre',
           ].includes(tempVNode.tagName)
         ) {
-          tempAttributes = {};
+          const newAttributes = { ...tempAttributes };
           switch (tempVNode.tagName) {
             case 'strong':
             case 'b':
-              tempAttributes.strong = true;
+              newAttributes.strong = true;
               break;
+            case 'em':
             case 'i':
-              tempAttributes.i = true;
+              newAttributes.i = true;
               break;
             case 'u':
-              tempAttributes.u = true;
+              newAttributes.u = true;
               break;
             case 'sub':
-              tempAttributes.sub = true;
+              newAttributes.sub = true;
               break;
             case 'sup':
-              tempAttributes.sup = true;
+              newAttributes.sup = true;
               break;
           }
           const formattingFragment = buildFormatting(tempVNode);
@@ -541,7 +542,18 @@ const buildRun = async (vNode, attributes, docxDocumentInstance) => {
           if (formattingFragment) {
             runPropertiesFragment.import(formattingFragment);
           }
-          // go a layer deeper if there is a span somewhere in the children
+
+          if (tempVNode.children && tempVNode.children.length) {
+            for (let i = 0; i < tempVNode.children.length; i++) {
+              const child = tempVNode.children[i];
+              const childFragments = await buildRun(child, newAttributes, docxDocumentInstance);
+              if (Array.isArray(childFragments)) {
+                runFragmentsArray.push(...childFragments);
+              } else {
+                runFragmentsArray.push(childFragments);
+              }
+            }
+          }
         } else if (tempVNode.tagName === 'span') {
           // eslint-disable-next-line no-use-before-define
           const spanFragment = await buildRunOrRuns(
@@ -562,14 +574,6 @@ const buildRun = async (vNode, attributes, docxDocumentInstance) => {
           // eslint-disable-next-line no-continue
           continue;
         }
-      }
-
-      if (tempVNode.children && tempVNode.children.length) {
-        if (tempVNode.children.length > 1) {
-          attributes = { ...attributes, ...tempAttributes };
-        }
-
-        vNodes = tempVNode.children.slice().concat(vNodes);
       }
     }
     if (runFragmentsArray.length) {

@@ -1,6 +1,6 @@
 {
   "name": "@alex-legal/html-to-docx",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "HTML to DOCX converter",
   "keywords": [
     "html",
@@ -43,9 +43,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/privateOmega/html-to-docx/issues"
+    "url": "https://github.com/alex-legal/html-to-docx/issues"
   },
-  "homepage": "https://github.com/privateOmega/html-to-docx#readme",
+  "homepage": "https://github.com/alex-legal/html-to-docx/html-to-docx#readme",
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
