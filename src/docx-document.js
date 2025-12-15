@@ -263,7 +263,13 @@ class DocxDocument {
 
   generateStylesXML() {
     return generateXMLString(
-      generateStylesXML(this.font, this.fontSize, this.complexScriptFontSize, this.lang, this.paragraph)
+      generateStylesXML(
+        this.font,
+        this.fontSize,
+        this.complexScriptFontSize,
+        this.lang,
+        this.paragraph
+      )
     );
   }
 
@@ -359,7 +365,9 @@ class DocxDocument {
           .att(
             '@w',
             'val',
-            type === 'ol' ? this.ListStyleBuilder.getListPrefixSuffix(properties.style, level) : ''
+            type === 'ol'
+              ? this.ListStyleBuilder.getListPrefixSuffix(properties.style, level)
+              : this.ListStyleBuilder.getUnorderedListPrefix(properties.style)
           )
           .up()
           .ele('@w', 'lvlJc')
