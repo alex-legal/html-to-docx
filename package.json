@@ -1,6 +1,6 @@
 {
   "name": "@alex-legal/html-to-docx",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "HTML to DOCX converter",
   "keywords": [
     "html",
