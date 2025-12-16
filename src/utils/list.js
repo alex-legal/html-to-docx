@@ -54,7 +54,7 @@ class ListStyleBuilder {
   // eslint-disable-next-line class-methods-use-this
   getUnorderedListPrefix(style) {
     if (style && style['list-style-type']) {
-      return style['list-style-type'].replace(/^"(.*)"$/, '$1');
+      return style['list-style-type'].replace(/^'(.*)'$/, '$1');
     }
 
     return '';
