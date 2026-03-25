@@ -1,26 +1,7 @@
 /* eslint-disable no-useless-escape */
 import JSZip from 'jszip';
 import addFilesToContainer from './src/html-to-docx';
-
-const minifyHTMLString = (htmlString) => {
-  try {
-    if (typeof htmlString === 'string' || htmlString instanceof String) {
-      const minifiedHTMLString = htmlString
-        .replace(/\n/g, ' ')
-        .replace(/\r/g, ' ')
-        .replace(/\r\n/g, ' ')
-        .replace(/[\t]+\</g, '<')
-        .replace(/\>[\t ]+\</g, '><')
-        .replace(/\>[\t ]+$/g, '>');
-
-      return minifiedHTMLString;
-    }
-
-    throw new Error('invalid html string');
-  } catch (error) {
-    return null;
-  }
-};
+import minifyHTMLString from './src/utils/minify-html';
 
 async function generateContainer(
   htmlString,

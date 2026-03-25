@@ -13,11 +13,12 @@
   "main": "dist/html-to-docx.umd.js",
   "module": "dist/html-to-docx.esm.js",
   "scripts": {
-    "test": "npm run build && node example/example-node.js",
+    "test": "npm run test:whitespace && npm run build && node example/example-node.js",
     "prerelease": "rollup -c",
     "release": "standard-version",
     "lint": "eslint --fix .",
     "prettier:check": "prettier --check '**/*.{js}'",
+    "test:whitespace": "node test/whitespace-regression.test.mjs",
     "validate": "run-s lint prettier:check",
     "build": "rollup -c",
     "prepare": "husky install"
