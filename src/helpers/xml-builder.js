@@ -1528,10 +1528,26 @@ const buildTableGrid = (vNode, attributes) => {
   const tableGridFragment = fragment({ namespaceAlias: { w: namespaces.w } }).ele('@w', 'tblGrid');
   if (vNodeHasChildren(vNode)) {
     const gridColumns = vNode.children.filter((childVNode) => childVNode.tagName === 'col');
-    const gridWidth = attributes.maximumWidth / gridColumns.length;
+    const equalShare = attributes.maximumWidth / gridColumns.length;
 
     for (let index = 0; index < gridColumns.length; index++) {
-      const tableGridColFragment = buildTableGridCol(gridWidth);
+      const colVNode = gridColumns[index];
+      const widthStyle =
+        colVNode.properties && colVNode.properties.style && colVNode.properties.style.width;
+
+      let gridWidth = equalShare;
+      if (widthStyle) {
+        if (percentageRegex.test(widthStyle)) {
+          percentageRegex.lastIndex = 0;
+          const percentageValue = widthStyle.match(percentageRegex)[1];
+          gridWidth = (percentageValue / 100) * attributes.maximumWidth;
+        } else if (pixelRegex.test(widthStyle)) {
+          pixelRegex.lastIndex = 0;
+          gridWidth = pixelToTWIP(widthStyle.match(pixelRegex)[1]);
+        }
+      }
+
+      const tableGridColFragment = buildTableGridCol(Math.round(gridWidth));
       tableGridFragment.import(tableGridColFragment);
     }
   }
